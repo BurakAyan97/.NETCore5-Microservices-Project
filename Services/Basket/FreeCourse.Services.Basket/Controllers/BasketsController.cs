@@ -24,7 +24,7 @@ namespace FreeCourse.Services.Basket.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBasket()
         {
-            var claims = User.Claims;
+            var claims = User.Claims;//Breakpoint ile bakmak için yazmıştık.Name identifier - sub muhabbeti.
             return CreateActionResultInstance(await _basketService.GetBasket(_sharedIdentityService.GetUserId));
         }
 
