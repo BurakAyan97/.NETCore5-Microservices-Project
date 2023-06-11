@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 namespace FreeCourse.Services.Order.Application.Mapping
 {
 
-    public class CustomMapping:Profile
+    public class CustomMapping : Profile
     {
         public CustomMapping()
         {
             CreateMap<Domain.OrderAggregate.Order, OrderDto>().ReverseMap();
-            CreateMap<Domain.OrderAggregate.OrderItem,OrderItemDto>().ReverseMap();
-            CreateMap<Address,AddressDto>().ReverseMap();
+            CreateMap<Domain.OrderAggregate.OrderItem, OrderItemDto>().ReverseMap();
+            CreateMap<Address, AddressDto>().ReverseMap();
         }
     }
 }
