@@ -1,0 +1,24 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}", //Ocelotun clientı yönlendirdiği url
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5011
+        }
+      ],
+      "UpstreamPathTemplate": "/services/catalog/{everything}", //Clientın istek yaptığı url
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ], //Client hangi istekleri yapabilir
+      "UpstreamScheme": "http" //Sadece http üzerinden istek yapılabilir demek
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000" //htttp://localhost:5000/todos/{id} şeklinde gözükcek
+  }
+}
+
+//http://localhost:5000/services/catalog/courses/savecourse Client istek--UPSTREAMPATH
+                                                        //-------------------OCELOT----------------------------------
+//http://localhost:5011/api/courses/savecourse Yukarıdaki kodlara göre yönlendirilmiş url.--DOWNSTREAMPATH

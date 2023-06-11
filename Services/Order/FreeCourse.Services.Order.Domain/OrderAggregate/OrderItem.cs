@@ -23,6 +23,10 @@ namespace FreeCourse.Services.Order.Domain.OrderAggregate
             PictureUrl = pictureUrl;
             Price = price;
         }
+        public OrderItem()
+        {
+            
+        }
 
         public void UpdateOrderItem(string productName, string pictureUrl, decimal price)
         {
