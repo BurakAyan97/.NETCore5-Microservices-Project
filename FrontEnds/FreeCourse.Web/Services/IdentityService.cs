@@ -90,6 +90,7 @@ namespace FreeCourse.Web.Services
 
             ClaimsPrincipal principal = new ClaimsPrincipal(claimsIdentity);
 
+            //Tokenlarımızı cookie içinde tutma kodlaması.
             var authenticationProperties = new AuthenticationProperties();
             authenticationProperties.StoreTokens(new List<AuthenticationToken>()
             {
@@ -97,6 +98,13 @@ namespace FreeCourse.Web.Services
                 new AuthenticationToken{Name=OpenIdConnectParameterNames.RefreshToken,Value=token.RefreshToken},
                 new AuthenticationToken{Name=OpenIdConnectParameterNames.ExpiresIn,Value=DateTime.Now.AddSeconds(token.ExpiresIn).ToString("o",CultureInfo.InvariantCulture)},
             });
+
+            authenticationProperties.IsPersistent = signInInput.IsRemember;
+            
+            //Giriş yaptığımızda tokenimiz oluştu hayırlı olsun.
+            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authenticationProperties);
+
+            return Response<bool>.Success(200);
         }
     }
 }

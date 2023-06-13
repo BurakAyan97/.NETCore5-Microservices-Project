@@ -1,0 +1,35 @@
+﻿@model FreeCourse.Web.Models.SignInInput
+@{
+    ViewData["Title"] = "SignIn";
+}
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Üye Giriş</h5>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <form asp-controller="Auth" asp-action="SignIn" method="post">
+                    <div class="form-group">
+                        <label asp-for="Email" class="form-label" for="exampleInputEmail1">Email address</label>
+                        <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" for="exampleInputPassword1">Password</label>
+                        <input type="password" asp-for="Password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <span asp-validation-for="Password"></span>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="IsRemember" type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label asp-for="IsRemember" class="form-check-label" for="exampleCheck1"></label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
