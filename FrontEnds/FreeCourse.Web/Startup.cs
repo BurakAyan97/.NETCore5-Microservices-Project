@@ -1,3 +1,4 @@
+using FreeCourse.Web.Handler;
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services;
 using FreeCourse.Web.Services.Interfaces;
@@ -26,13 +27,19 @@ namespace FreeCourse.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHttpContextAccessor();
-
-            services.AddHttpClient<IIdentityService, IdentityService>();
-
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));//Option Pattern
 
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
+
+            var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+
+            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+            services.AddHttpContextAccessor();
+            services.AddHttpClient<IIdentityService, IdentityService>();
+            services.AddHttpClient<IUserService, UserService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUrl);
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();//Yukardaki link kullanıldığında git bu handlerı çalıştır diyoruz.
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
             {

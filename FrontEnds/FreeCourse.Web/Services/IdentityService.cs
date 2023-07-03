@@ -38,7 +38,7 @@ namespace FreeCourse.Web.Services
             //endpointler discovery token de vardı hatırla. O endpointleri kullanmak için çağırıyoruz.
             var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
-                Address = _serviceApiSettings.BaseUrl,
+                Address = _serviceApiSettings.IdentityBaseUrl,
                 Policy = new DiscoveryPolicy { RequireHttps = false }
             });
 
@@ -84,7 +84,7 @@ namespace FreeCourse.Web.Services
             //endpointler discovery token de vardı hatırla. O endpointleri kullanmak için çağırıyoruz.
             var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
-                Address = _serviceApiSettings.BaseUrl,
+                Address = _serviceApiSettings.IdentityBaseUrl,
                 Policy = new DiscoveryPolicy { RequireHttps = false }
             });
 
@@ -110,7 +110,7 @@ namespace FreeCourse.Web.Services
             //endpointler discovery token de vardı hatırla. O endpointleri kullanmak için çağırıyoruz.
             var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
-                Address = _serviceApiSettings.BaseUrl,
+                Address = _serviceApiSettings.IdentityBaseUrl,
                 Policy = new DiscoveryPolicy { RequireHttps = false }
             });
 
