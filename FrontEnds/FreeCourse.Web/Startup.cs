@@ -1,3 +1,4 @@
+using FreeCourse.Shared.Service;
 using FreeCourse.Web.Handler;
 using FreeCourse.Web.Models;
 using FreeCourse.Web.Services;
@@ -33,9 +34,23 @@ namespace FreeCourse.Web
 
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 
-            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
             services.AddHttpContextAccessor();
+
+            services.AddAccessTokenManagement();//DI için lazım bi interface kullandık tokencache diye
+            
+            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+            
+            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+            
             services.AddHttpClient<IIdentityService, IdentityService>();
+            
+            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
+            
+            services.AddHttpClient<ICatalogService, CatalogService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUrl}/{serviceApiSettings.Catalog.Path}");
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>(); ;
+            
             services.AddHttpClient<IUserService, UserService>(opt =>
             {
                 opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUrl);
