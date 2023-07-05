@@ -37,20 +37,25 @@ namespace FreeCourse.Web
             services.AddHttpContextAccessor();
 
             services.AddAccessTokenManagement();//DI için lazım bi interface kullandık tokencache diye
-            
+
             services.AddScoped<ResourceOwnerPasswordTokenHandler>();
-            
+
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
-            
+
             services.AddHttpClient<IIdentityService, IdentityService>();
-            
+
             services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
-            
+
             services.AddHttpClient<ICatalogService, CatalogService>(opt =>
             {
                 opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUrl}/{serviceApiSettings.Catalog.Path}");
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+            services.AddHttpClient<IPhotoStockService, PhotoStockService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUrl}/{serviceApiSettings.PhotoStock.Path}");
             }).AddHttpMessageHandler<ClientCredentialTokenHandler>(); ;
-            
+
             services.AddHttpClient<IUserService, UserService>(opt =>
             {
                 opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUrl);

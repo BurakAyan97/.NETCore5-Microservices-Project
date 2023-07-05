@@ -25,7 +25,7 @@ namespace FreeCourse.Services.PhotoStock.Controllers
                 using (var stream = new FileStream(path, FileMode.Create))
                     await photo.CopyToAsync(stream, cancellationToken);
 
-                var returnPath = "photos/" + photo.FileName;//http://www.photostock.api.com/photos/örnek.jpg şeklinde endpoint oluşması için.
+                var returnPath = photo.FileName;//http://www.photostock.api.com/photos/örnek.jpg şeklinde endpoint oluşması için.
 
                 PhotoDto photoDto = new() { Url = returnPath };
 
