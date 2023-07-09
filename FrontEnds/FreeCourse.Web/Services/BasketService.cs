@@ -42,7 +42,7 @@ namespace FreeCourse.Web.Services
 
             var basket = await Get();
 
-            if (basket is null || basket.DiscountCode is null)
+            if (basket is null)
                 return false;
 
             var hasDiscount = await _discountService.GetDiscount(discountCode);
@@ -50,8 +50,7 @@ namespace FreeCourse.Web.Services
             if (hasDiscount is null)
                 return false;
 
-            basket.DiscountRate = hasDiscount.Rate;
-            basket.DiscountCode = hasDiscount.Code;
+            basket.ApplyDiscount(hasDiscount.Code, hasDiscount.Rate);
 
             await SaveOrUpdate(basket);
             return true;
@@ -64,8 +63,7 @@ namespace FreeCourse.Web.Services
             if (basket is null || basket.DiscountCode is null)
                 return false;
 
-            basket.DiscountCode = null;
-
+            basket.CancelDiscount();
             await SaveOrUpdate(basket);
             return true;
         }
