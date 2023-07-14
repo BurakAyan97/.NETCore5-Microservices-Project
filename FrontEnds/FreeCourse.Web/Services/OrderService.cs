@@ -24,7 +24,7 @@ namespace FreeCourse.Web.Services
             _basketService = basketService;
             _sharedIdentityService = sharedIdentityService;
         }
-        //Burası çokomelli
+        //Burası çokomellisadasdsadasd
         public async Task<OrderCreatedViewModel> CreateOrder(CheckoutInfoInput checkoutInfoInput)
         {
             var basket = await _basketService.Get();
